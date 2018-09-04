@@ -9,7 +9,6 @@
  */
 
 module.exports.policies = {
-
   /***************************************************************************
   *                                                                          *
   * Default policy for all controllers and actions, unless overridden.       *
@@ -18,5 +17,15 @@ module.exports.policies = {
   ***************************************************************************/
 
   // '*': true,
-
+  ProjectController: {
+    get: 'isAuthorized',
+    '*': ['isAuthorized', 'isAdmin'],
+  },
+  UserController: {
+    '*': ['isAuthorized', 'isAdmin'],
+  },
+  VoteController: {
+    create: 'isAuthorized',
+    '*': ['isAuthorized', 'isAdmin'],
+  },
 };

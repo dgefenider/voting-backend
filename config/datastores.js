@@ -14,8 +14,6 @@
  */
 
 module.exports.datastores = {
-
-
   /***************************************************************************
   *                                                                          *
   * Your app's default datastore.                                            *
@@ -33,7 +31,6 @@ module.exports.datastores = {
   ***************************************************************************/
 
   default: {
-
     /***************************************************************************
     *                                                                          *
     * Want to use a different database during development?                     *
@@ -49,9 +46,6 @@ module.exports.datastores = {
     *                                                                          *
     ***************************************************************************/
     adapter: require('sails-mysql'),
-    url: 'mysql://vasvas:E436^%$ff@host:3306/voting',
-
+    url: 'mysql://vasvas:123456@localhost:3306/voting',
   },
-
-
 };

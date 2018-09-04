@@ -5,22 +5,34 @@
  * @docs        :: https://sailsjs.com/docs/concepts/models-and-orm/models
  */
 
-module.exports = {
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
 
+module.exports = {
   attributes: {
     username: {
       type: 'string', //тип - строка
-      required: true //это значит что поле - обязательное 
+      required: true, //это значит что поле - обязательное
+      unique: true,
     },
     password: {
       type: 'string',
-      required: 'true'
+      required: true,
     },
     isAdmin: {
       type: 'boolean',
-      defaultsTo: 'false'
-    }
+      defaultsTo: false,
+    },
   },
-
+  beforeCreate: (valuesToSet, proceed) => {
+    bcrypt
+            .hash(valuesToSet.password, saltRounds)
+            .then(hashed => {
+              valuesToSet.password = hashed;
+              return proceed();
+            })
+            .catch(err => {
+              return proceed(err);
+            });
+  },
 };
-

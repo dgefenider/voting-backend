@@ -10,7 +10,6 @@
  */
 
 module.exports.bootstrap = async function(done) {
-
   // By convention, this is a good place to set up fake data during development.
   //
   // For example:
@@ -29,6 +28,10 @@ module.exports.bootstrap = async function(done) {
 
   // Don't forget to trigger `done()` when this bootstrap function's logic is finished.
   // (otherwise your server will never lift, since it's waiting on the bootstrap)
-  return done();
-
+  User.findOrCreate(
+        {username: 'admin'},
+        {username: 'admin', password: 'mystrongpassword', isAdmin: true},
+  ).then(() => {
+    return done();
+  });
 };
