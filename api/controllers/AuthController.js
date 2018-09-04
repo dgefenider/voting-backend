@@ -12,20 +12,20 @@ module.exports = {
   index: (req, res) => {
     const data = req.body || req.query;
     if (!data.password || !data.username) {
-      return res.serverError('Wrong request');
+      return res.badRequest('No username or password');
     }
     let foundUser;
     User.findOne({username: data.username})
             .then(found => {
               if (!found) {
-                return res.serverError('Wrong request');
+                return res.badRequest('Wrong username');
               }
               foundUser = found;
               return bcrypt.compare(data.password, found.password);
             })
             .then(result => {
               if (!result) {
-                return res.serverError('Wrong request');
+                return res.badRequest('Wrong password');
               }
               const payload = {
                 id: foundUser.id,
@@ -33,7 +33,7 @@ module.exports = {
               };
               jwt.encode(votingConfig.jwtSecret, payload, (err, token) => {
                 if (err) {
-                  return res.serverError(err);
+                  return res.badRequest(err);
                 }
                 return res.json({token});
               });
