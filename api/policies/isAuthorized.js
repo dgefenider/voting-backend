@@ -8,7 +8,7 @@ module.exports = async (req, res, proceed) => {
       if (err) {
         return res.forbidden();
       } else {
-        req.userId = decodedPayload.userId;
+        req.userId = decodedPayload.id;
         req.isAdmin = decodedPayload.isAdmin;
         return proceed();
       }

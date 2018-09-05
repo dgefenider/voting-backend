@@ -18,14 +18,14 @@ module.exports.policies = {
 
   // '*': true,
   ProjectController: {
-    get: 'isAuthorized',
+    getProjects: 'isAuthorized',
     '*': ['isAuthorized', 'isAdmin'],
   },
   UserController: {
     '*': ['isAuthorized', 'isAdmin'],
   },
   VoteController: {
-    create: 'isAuthorized',
+    vote: 'isAuthorized',
     '*': ['isAuthorized', 'isAdmin'],
   },
 };
