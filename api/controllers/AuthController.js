@@ -30,12 +30,13 @@ module.exports = {
               const payload = {
                 id: foundUser.id,
                 isAdmin: foundUser.isAdmin,
+                username: foundUser.username,
               };
               jwt.encode(votingConfig.jwtSecret, payload, (err, token) => {
                 if (err) {
                   return res.badRequest(err);
                 }
-                return res.json({token});
+                return res.json({token, username: foundUser.username, isAdmin: foundUser.isAdmin, id: foundUser.id});
               });
             })
             .catch(err => {

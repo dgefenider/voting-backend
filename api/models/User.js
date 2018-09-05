@@ -35,4 +35,19 @@ module.exports = {
               return proceed(err);
             });
   },
+  beforeUpdate: (valuesToSet, proceed) => {
+    if (valuesToSet.password) {
+      bcrypt
+                .hash(valuesToSet.password, saltRounds)
+                .then(hashed => {
+                  valuesToSet.password = hashed;
+                  return proceed();
+                })
+                .catch(err => {
+                  return proceed(err);
+                });
+    } else {
+      proceed();
+    }
+  },
 };
